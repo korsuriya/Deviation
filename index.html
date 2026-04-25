@@ -11,292 +11,225 @@
             margin: 10px;
         }
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: auto;
             background: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        
+        /* --- TOP CONTROLS --- */
         .controls {
             margin-bottom: 20px;
-            display: flex;
+            display: grid;
+            grid-template-columns: auto 1fr; /* Input and Buttons side by side on desktop */
             gap: 10px;
             align-items: center;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
             flex-wrap: wrap;
         }
         button {
-            padding: 10px 18px; /* Made slightly larger */
+            padding: 12px 18px;
             cursor: pointer;
             background-color: #007BFF;
             color: white;
             border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: background 0.2s;
-            width: 100%; /* Full width on very small screens */
-            box-sizing: border-box;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
         }
         button:hover:not(:disabled) { filter: brightness(1.1); }
         button:disabled { background-color: #aaa; cursor: not-allowed; }
         button.stop { background-color: #dc3545; }
-        button.submit { background-color: #28a745; font-weight: bold; }
+        button.submit { background-color: #28a745; }
         button.log { background-color: #6c757d; }
 
         input[type="number"] {
-            padding: 10px;
+            padding: 12px;
             width: 100%;
-            max-width: 80px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
             font-size: 16px;
         }
 
         #timer {
-            font-size: 1.2em;
+            grid-column: 1 / -1; /* Timer spans full width */
+            font-size: 1.5em;
             font-weight: bold;
-            margin-left: auto;
-            color: #d9534f;
-            width: 100%;
             text-align: center;
+            color: #d9534f;
             margin-top: 10px;
+            padding: 10px;
+            background: #fff0f0;
+            border-radius: 5px;
         }
-        #timer.times-up {
-            color: #dc3545;
-            font-size: 1.4em;
-        }
+        #timer.times-up { color: #dc3545; background: #ffcccc; font-size: 1.8em; }
 
+        /* --- RESULTS SUMMARY --- */
         #results-summary {
             display: none;
             background: #e9ecef;
-            padding: 15px 20px;
+            padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
             border-left: 5px solid #28a745;
         }
         .summary-stats {
             display: flex;
-            gap: 30px;
-            justify-content: center;
+            justify-content: space-around;
             text-align: center;
-            flex-wrap: wrap;
         }
         .stat-value { font-size: 24px; font-weight: bold; color: #333; display: block;}
-        .stat-label { font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1px;}
+        .stat-label { font-size: 12px; color: #666; text-transform: uppercase;}
 
-        /* --- DESKTOP TABLE STYLES --- */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 14px;
+        /* --- QUIZ LAYOUT (CARDS) --- */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
+        .q-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: #fff;
         }
-        th { background-color: #f8f9fa; font-weight: bold; }
-        .string-cell {
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+        .q-status { font-weight: normal; font-size: 14px; }
+
+        .strings-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .string-box {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+            overflow-x: auto;
+        }
+        .string-label {
+            display: block;
+            font-size: 11px;
+            color: #6c757d;
+            margin-bottom: 5px;
+            font-family: sans-serif;
+        }
+        .string-text {
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            letter-spacing: 1px;
             font-size: 15px;
-        }
-        
-        .diff-highlight {
-            background-color: #ffcccc;
-            color: #cc0000;
-            border-radius: 3px;
-            padding: 0 2px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
+        /* --- OPTIONS GRID --- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columns on Desktop */
+            gap: 8px;
+        }
         .radio-label {
-            display: block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin: 2px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 5px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: center;
+            background: white;
             transition: all 0.2s;
-            text-align: left;
         }
-        .radio-correct {
-            background-color: #d4edda;
-            border: 2px solid #28a745;
-            color: #155724;
-            font-weight: bold;
+        .radio-label:has(input:checked) {
+            border-color: #007bff;
+            background: #e7f1ff;
         }
-        .radio-wrong {
-            background-color: #f8d7da;
-            border: 2px solid #dc3545;
-            color: #721c24;
-            text-decoration: line-through;
+        input[type="radio"] { margin-right: 5px; pointer-events: none; } /* Prevent zoom on iOS */
+
+        /* --- SCORING HIGHLIGHTS --- */
+        .diff-highlight { background-color: #ffcccc; color: #cc0000; border-radius: 2px; padding: 0 1px; }
+        .radio-correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; font-weight: bold; }
+        .radio-wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; text-decoration: line-through; }
+
+        /* --- SMARTPHONE STYLES --- */
+        @media (max-width: 768px) {
+            .controls { grid-template-columns: 1fr; }
+            .btn-group { flex-direction: column; }
+            button { width: 100%; }
+            .summary-stats { flex-wrap: wrap; gap: 15px; }
+            
+            /* Stack strings vertically on mobile */
+            .strings-container { flex-direction: column; }
+            .string-text { font-size: 14px; white-space: normal; word-break: break-all; }
+            
+            /* Make buttons bigger and 2 columns on mobile */
+            .options-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .radio-label { padding: 15px 10px; font-size: 15px; justify-content: flex-start; }
         }
 
-        /* --- MOBILE CARD STYLES --- */
-        @media (max-width: 800px) {
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-            .controls > label, .controls > input {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin-bottom: 5px;
-            }
-            #timer { font-size: 2em; }
-            .stat-value { font-size: 20px; }
-
-            /* Transform Table into Cards */
-            table, thead, tbody, th, td, tr { 
-                display: block; 
-            }
-            thead { display: none; } /* Hide table headers */
-            
-            tr { 
-                border: 1px solid #ddd; 
-                border-radius: 8px; 
-                margin-bottom: 20px; 
-                padding: 15px; 
-                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            }
-            
-            td { 
-                padding: 8px 0; 
-                border: none !important; 
-                text-align: left; 
-                display: flex; 
-                justify-content: space-between; 
-                align-items: center;
-                border-bottom: 1px solid #eee !important;
-            }
-            td:last-child { border-bottom: none !important; }
-            
-            /* Add labels before data */
-            td::before { 
-                content: attr(data-label); 
-                font-weight: bold; 
-                color: #555; 
-                flex-shrink: 0;
-                margin-right: 15px;
-                width: 70px;
-            }
-            
-            /* String cell specific */
-            .string-cell { 
-                flex-direction: column; 
-                align-items: flex-start !important; 
-                font-size: 13px; 
-                word-break: break-all; 
-            }
-            .string-cell::before { margin-bottom: 5px; width: 100%; }
-            
-            /* Hide the label for the 5 radio button columns so they stack cleanly */
-            td:nth-child(n+5)::before { display: none; }
-            td:nth-child(n+5) { flex-direction: column; }
-            
-            /* Make radio buttons HUGE for fingers */
-            .radio-label { 
-                width: 100%; 
-                padding: 12px; 
-                font-size: 16px; 
-                margin: 5px 0;
-                border: 1px solid #ccc;
-            }
-            input[type="radio"] { 
-                transform: scale(1.4); 
-                margin-right: 10px;
-                pointer-events: none; /* Prevents double-tap zoom on iOS */
-            }
-        }
-
-        /* --- MODAL STYLES --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            overflow-y: auto;
-        }
-        .modal-content {
-            background-color: white;
-            margin: 20px auto;
-            padding: 20px;
-            width: 90%;
-            max-width: 700px;
-            border-radius: 8px;
-        }
+        /* --- MODAL --- */
+        .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); overflow-y: auto; }
+        .modal-content { background-color: white; margin: 20px auto; padding: 20px; width: 90%; border-radius: 8px; }
         .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
         .close:hover { color: black; }
-        
-        @media (max-width: 800px) {
-            #logTable { font-size: 12px; }
-            #logTable th, #logTable td { padding: 6px 3px; }
-        }
+        .modal-content table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px;}
+        .modal-content th, .modal-content td { border: 1px solid #ddd; padding: 8px; text-align: center;}
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="controls">
-        <label for="numQuestionsInput">Questions:
-            <input type="number" id="numQuestionsInput" value="10" min="1" max="100">
-        </label>
+        <input type="number" id="numQuestionsInput" value="5" min="1" max="100" placeholder="Qty">
         
-        <button id="btnGenerate" onclick="generateQuiz()">Generate & Start</button>
-        <button id="btnStop" class="stop" onclick="stopCountdown()" disabled style="display:none;">Stop Timer</button>
-        <button id="btnScore" class="submit" onclick="scoreQuiz()" disabled>Submit Quiz</button>
-        <button class="log" onclick="showLog()">View Score Log</button>
-        
-        <span id="timer">Time Remaining: -- sec</span>
+        <div class="btn-group">
+            <button id="btnGenerate" onclick="generateQuiz()">Generate & Start</button>
+            <button id="btnStop" class="stop" onclick="stopCountdown()" disabled style="display:none;">Stop Timer</button>
+            <button id="btnScore" class="submit" onclick="scoreQuiz()" disabled>Submit Quiz</button>
+            <button class="log" onclick="showLog()">View Score Log</button>
+        </div>
+
+        <div id="timer">Time Remaining: -- sec</div>
     </div>
 
     <div id="results-summary">
         <div class="summary-stats">
-            <div><span class="stat-value" id="res-score">0/10</span><span class="stat-label">Score</span></div>
+            <div><span class="stat-value" id="res-score">0/5</span><span class="stat-label">Score</span></div>
             <div><span class="stat-value" id="res-accuracy">0%</span><span class="stat-label">Accuracy</span></div>
             <div><span class="stat-value" id="res-time">0s</span><span class="stat-label">Time Used</span></div>
             <div><span class="stat-value" id="res-missing">0</span><span class="stat-label">Missing</span></div>
         </div>
     </div>
 
-    <table id="quizTable">
-        <thead>
-            <tr>
-                <th>Question</th>
-                <th>String 1</th>
-                <th>String 2</th>
-                <th>Your Answer</th>
-                <th>No-deviate</th>
-                <th>1 deviate</th>
-                <th>2 deviate</th>
-                <th>3 deviate</th>
-                <th>4 or more deviate</th>
-            </tr>
-        </thead>
-        <tbody id="quizBody">
-        </tbody>
-    </table>
+    <!-- Replaced Table with a Div Container for Cards -->
+    <div id="quizBody" class="quiz-container">
+        <!-- Cards will be injected here -->
+    </div>
 </div>
 
 <div id="logModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeLog()">&times;</span>
         <h2>Score Log</h2>
-        <table id="logTable">
-            <thead>
-                <tr>
-                    <th>Date/Time</th>
-                    <th>Score</th>
-                    <th>Total</th>
-                    <th>Time Allowed</th>
-                    <th>Time Used</th>
-                    <th>Missing</th>
-                </tr>
-            </thead>
+        <table>
+            <thead><tr><th>Date/Time</th><th>Score</th><th>Total</th><th>Time Limit</th><th>Time Used</th><th>Missing</th></tr></thead>
             <tbody id="logBody"></tbody>
         </table>
     </div>
@@ -304,7 +237,7 @@
 
 <script>
     let correctAnswers = [];
-    let numQuestions = 10;
+    let numQuestions = 5;
     let stopTimer = false;
     let quizStartTime = null;
     let timerInterval = null;
@@ -313,16 +246,13 @@
 
     function generateQuiz() {
         let input = document.getElementById("numQuestionsInput").value;
-        if (!input || input <= 0 || isNaN(input)) {
-            alert("Please enter a valid number of questions.");
-            return;
-        }
+        if (!input || input <= 0 || isNaN(input)) { alert("Please enter a valid number."); return; }
 
         numQuestions = parseInt(input);
         totalAllowedTime = numQuestions * 15;
 
-        const tbody = document.getElementById("quizBody");
-        tbody.innerHTML = "";
+        const container = document.getElementById("quizBody");
+        container.innerHTML = "";
         correctAnswers = [];
         isScored = false;
         
@@ -340,22 +270,35 @@
             let str1 = randomMixedString(len);
             let str2 = makeSimilarString(str1);
             let correctCat = getDeviationCategory(str1, str2);
-            
             correctAnswers.push(correctCat);
 
-            // ADDED: data-label tags to make text appear nicely on mobile cards
-            let row = `<tr id="row-${i}">
-                <td data-label="Question #">Q${i}</td>
-                <td class="string-cell" id="str1-${i}" data-label="String 1">${escapeHtml(str1)}</td>
-                <td class="string-cell" id="str2-${i}" data-label="String 2">${escapeHtml(str2)}</td>
-                <td id="ans-${i}" data-label="Status"></td>
-                <td data-label="Options"><label class="radio-label"><input type="radio" name="q${i}" value="No-deviate"> No-deviate</label></td>
-                <td data-label="Options"><label class="radio-label"><input type="radio" name="q${i}" value="1 deviate"> 1 deviate</label></td>
-                <td data-label="Options"><label class="radio-label"><input type="radio" name="q${i}" value="2 deviate"> 2 deviate</label></td>
-                <td data-label="Options"><label class="radio-label"><input type="radio" name="q${i}" value="3 deviate"> 3 deviate</label></td>
-                <td data-label="Options"><label class="radio-label"><input type="radio" name="q${i}" value="4 or more deviate"> 4+ deviate</label></td>
-            </tr>`;
-            tbody.innerHTML += row;
+            // Create Card HTML instead of Table Row
+            let card = `
+            <div class="q-card" id="row-${i}">
+                <div class="q-header">
+                    <span>Question #${i}</span>
+                    <span class="q-status" id="ans-${i}"></span>
+                </div>
+                <div class="strings-container">
+                    <div class="string-box">
+                        <span class="string-label">String 1</span>
+                        <div class="string-text" id="str1-${i}">${escapeHtml(str1)}</div>
+                    </div>
+                    <div class="string-box">
+                        <span class="string-label">String 2</span>
+                        <div class="string-text" id="str2-${i}">${escapeHtml(str2)}</div>
+                    </div>
+                </div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="q${i}" value="No-deviate"> No-dev</label>
+                    <label class="radio-label"><input type="radio" name="q${i}" value="1 deviate"> 1 dev</label>
+                    <label class="radio-label"><input type="radio" name="q${i}" value="2 deviate"> 2 dev</label>
+                    <label class="radio-label"><input type="radio" name="q${i}" value="3 deviate"> 3 dev</label>
+                    <label class="radio-label"><input type="radio" name="q${i}" value="4 or more deviate"> 4+ dev</label>
+                </div>
+            </div>`;
+            
+            container.innerHTML += card;
         }
 
         startCountdown(totalAllowedTime);
@@ -364,26 +307,21 @@
     function scoreQuiz() {
         if(isScored) return; 
         isScored = true;
-        
         stopCountdown(); 
-        let score = 0;
-        let missing = 0;
+        let score = 0, missing = 0;
         const timeUsed = Math.floor((new Date() - quizStartTime) / 1000);
 
         for (let i = 1; i <= numQuestions; i++) {
             let userAnswer = "";
             let correctAnswer = correctAnswers[i - 1];
-            let row = document.getElementById(`row-${i}`);
+            let card = document.getElementById(`row-${i}`);
             let ansCell = document.getElementById(`ans-${i}`);
             
             let str1Orig = document.getElementById(`str1-${i}`).innerText;
             let str2Orig = document.getElementById(`str2-${i}`).innerText;
-
-            let radios = row.querySelectorAll('input[type="radio"]');
+            let radios = card.querySelectorAll('input[type="radio"]');
             
-            for (let r of radios) {
-                if (r.checked) userAnswer = r.value;
-            }
+            for (let r of radios) { if (r.checked) userAnswer = r.value; }
 
             let [html1, html2] = getHighlightedStrings(str1Orig, str2Orig);
             document.getElementById(`str1-${i}`).innerHTML = html1;
@@ -392,27 +330,21 @@
             radios.forEach(r => {
                 r.disabled = true; 
                 let label = r.parentElement;
-                
-                if (r.value === correctAnswer) {
-                    label.classList.add('radio-correct'); 
-                }
+                if (r.value === correctAnswer) label.classList.add('radio-correct'); 
                 
                 if (r.checked) {
                     if (r.value === correctAnswer) {
-                        ansCell.innerText = "✓ Correct";
-                        ansCell.style.color = "#155724";
+                        ansCell.innerHTML = "<span style='color:#155724'>✓ Correct</span>";
                         score++;
                     } else {
                         label.classList.add('radio-wrong'); 
-                        ansCell.innerText = "✗ Wrong";
-                        ansCell.style.color = "#721c24";
+                        ansCell.innerHTML = "<span style='color:#721c24'>✗ Wrong</span>";
                     }
                 }
             });
 
             if (userAnswer === "") {
-                ansCell.innerText = "⏳ Missing";
-                ansCell.style.color = "#856404";
+                ansCell.innerHTML = "<span style='color:#856404'>⏳ Missing</span>";
                 missing++;
             }
         }
@@ -430,16 +362,8 @@
         else summaryDiv.style.borderLeftColor = "#dc3545"; 
 
         let log = JSON.parse(localStorage.getItem('quizLog') || '[]');
-        log.push({
-            datetime: new Date().toLocaleString(),
-            score: score,
-            total: numQuestions,
-            timeLimit: totalAllowedTime,
-            timeUsed: timeUsed,
-            missing: missing
-        });
+        log.push({ datetime: new Date().toLocaleString(), score, total: numQuestions, timeLimit: totalAllowedTime, timeUsed, missing });
         localStorage.setItem('quizLog', JSON.stringify(log));
-
         document.getElementById("btnScore").disabled = true;
     }
 
@@ -452,11 +376,9 @@
     function getHighlightedStrings(str1, str2) {
         let html1 = "", html2 = "";
         const maxLen = Math.max(str1.length, str2.length);
-        
         for (let i = 0; i < maxLen; i++) {
             let c1 = i < str1.length ? str1[i] : "";
             let c2 = i < str2.length ? str2[i] : "";
-            
             if (c1 !== c2) {
                 html1 += `<span class="diff-highlight">${escapeHtml(c1)}</span>`;
                 html2 += `<span class="diff-highlight">${escapeHtml(c2)}</span>`;
@@ -471,26 +393,19 @@
     function startCountdown(totalSeconds) {
         quizStartTime = new Date();
         let endTime = new Date(quizStartTime.getTime() + (totalSeconds * 1000));
-        
         stopTimer = false;
         document.getElementById("btnStop").style.display = "inline-block";
         document.getElementById("btnStop").disabled = false;
         document.getElementById("btnScore").disabled = false;
         document.getElementById("btnGenerate").disabled = true;
-
         let timerEl = document.getElementById("timer");
 
         timerInterval = setInterval(() => {
-            let now = new Date();
-            let remainingSec = Math.floor((endTime - now) / 1000);
-
+            let remainingSec = Math.floor((endTime - new Date()) / 1000);
             if (remainingSec <= 0) {
-                remainingSec = 0;
                 clearInterval(timerInterval);
-                
                 timerEl.innerText = "Time's Up!";
                 timerEl.classList.add('times-up');
-                
                 scoreQuiz(); 
             } else {
                 timerEl.innerText = `Time Remaining: ${remainingSec} sec`;
@@ -508,9 +423,7 @@
     function randomMixedString(l) {
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$%&#!";
         let str = "";
-        for (let i = 0; i < l; i++) {
-            str += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
+        for (let i = 0; i < l; i++) str += chars.charAt(Math.floor(Math.random() * chars.length));
         return str;
     }
 
@@ -518,7 +431,6 @@
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$%&#!";
         let strArr = baseStr.split(''); 
         let changes = Math.floor(Math.random() * 3) + 1; 
-        
         for (let i = 0; i < changes; i++) {
             let pos = Math.floor(Math.random() * baseStr.length);
             strArr[pos] = chars.charAt(Math.floor(Math.random() * chars.length));
@@ -529,9 +441,7 @@
     function getDeviationCategory(a, b) {
         let d = 0;
         const maxLen = Math.max(a.length, b.length);
-        for (let i = 0; i < maxLen; i++) {
-            if (a[i] !== b[i]) d++;
-        }
+        for (let i = 0; i < maxLen; i++) { if (a[i] !== b[i]) d++; }
         switch (d) {
             case 0: return "No-deviate";
             case 1: return "1 deviate";
@@ -545,23 +455,13 @@
         let log = JSON.parse(localStorage.getItem('quizLog') || '[]');
         let logBody = document.getElementById("logBody");
         logBody.innerHTML = "";
-        log.reverse().forEach(entry => {
-            let row = `<tr>
-                <td>${entry.datetime}</td>
-                <td>${entry.score}</td>
-                <td>${entry.total}</td>
-                <td>${entry.timeLimit}s</td>
-                <td>${entry.timeUsed}s</td>
-                <td>${entry.missing}</td>
-            </tr>`;
-            logBody.innerHTML += row;
+        log.reverse().forEach(e => {
+            logBody.innerHTML += `<tr><td>${e.datetime}</td><td>${e.score}</td><td>${e.total}</td><td>${e.timeLimit}s</td><td>${e.timeUsed}s</td><td>${e.missing}</td></tr>`;
         });
         document.getElementById("logModal").style.display = "block";
     }
 
-    function closeLog() {
-        document.getElementById("logModal").style.display = "none";
-    }
+    function closeLog() { document.getElementById("logModal").style.display = "none"; }
 </script>
 
 </body>
